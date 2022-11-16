@@ -30,8 +30,13 @@ public class CarService {
         return carList.size();
     }
 
-    public List<Car> getCarList(int count) {
-        return carList.subList(0, count);
+    public List<Car> getCarList(Integer count) {
+        Optional<Integer> optional = Optional.ofNullable(count);
+        if (optional.isPresent()) {
+            return carList.subList(0, count);
+        } else {
+            return carList;
+        }
     }
 
     public List<Car> getCarList() {

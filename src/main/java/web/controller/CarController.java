@@ -20,13 +20,7 @@ public class CarController {
 
     @GetMapping("/cars")
     public String printCars(@RequestParam(value = "count", required = false) Integer count, ModelMap modelMap) {
-        Optional<Integer> optional = Optional.ofNullable(count);
-        if (optional.isPresent()) {
-            modelMap.addAttribute("mes", carService.getCarList(count));
-        } else {
-            modelMap.addAttribute("mes", carService.getCarList());
-        }
-
+        modelMap.addAttribute("mes", carService.getCarList(count));
         return "cars";
     }
 }
