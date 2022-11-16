@@ -6,9 +6,11 @@ import web.model.Car;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
-public class Cars {
+public class CarService {
     private List<Car> carList = new ArrayList<>(Arrays.asList(
             new Car(1, "audi", 55),
             new Car(2, "mers", 44),
@@ -17,34 +19,28 @@ public class Cars {
             new Car(5, "lambo", 11)
     ));
 
-    public Cars(List<Car> carList) {
+    public CarService(List<Car> carList) {
         this.carList = carList;
     }
 
-    public Cars() {
+    public CarService() {
     }
 
     public int size() {
         return carList.size();
     }
 
-    public Car getCarByIndex(int index) {
-        return carList.get(index);
-    }
-
-    public List<Car> getCarList(int start, int end) {
-        return carList.subList(start, end);
-    }
-
-    public List<Car> getCarList(int count) {
-        return carList.subList(0, count);
+    public List<Car> getCarList(Integer count) {
+        Optional<Integer> optional = Optional.ofNullable(count);
+        if (optional.isPresent()) {
+            return carList.subList(0, count);
+        } else {
+            return carList;
+        }
     }
 
     public List<Car> getCarList() {
         return carList;
     }
 
-    public void setCarList(List<Car> carList) {
-        this.carList = carList;
-    }
 }
